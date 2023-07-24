@@ -8,9 +8,7 @@
           </v-col>
         </v-col>
       </v-row>
-      <TaskItem v-for="(task, index) in list.tasks" :id="task.id" :title="task.title" :history="task.history"
-        :description="task.description" :time="task.time" :key="index">
-      </TaskItem>
+      <TaskItem v-for="(task, index) in list.tasks" :id="task.id" :title="task.title" :history="task.history" :description="task.description" :time="task.time" :key="index" />
     </v-responsive>
   </v-container>
 
@@ -25,8 +23,8 @@
         <v-text-field v-model="taskLink" label="Link Task"></v-text-field>
       </v-card-text>
       <v-card-actions>
-        <v-btn rounded="20" block prepend-icon="mdi-plus" elevation="2" @click="addNewTask"
-          class="bg-teal-lighten-2">Salvar Task</v-btn>
+        <v-btn rounded="20" block prepend-icon="mdi-plus" @click="addNewTask"
+          class="bg-teal-lighten-2">Salvar Tarefa</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
