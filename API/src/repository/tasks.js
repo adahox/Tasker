@@ -4,7 +4,7 @@ const { createHistory } = require('./history');
 const createTask = async (data) => {
 
     const redmineLink = data.redmineLink;
-    const redmineLinkArray = data.redmineLink.split("/");
+    const redmineLinkArray = data.redmineLink.split("=");
     const redmineId = redmineLinkArray.slice(-1)[0];
 
     const task = await prisma.tasks.create({

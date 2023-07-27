@@ -34,8 +34,6 @@ import History, { IHistory } from './history/History.vue'
 interface ITaskItem {
     id?: string,
     title: string,
-    description: string,
-    time: string,
     history: Array<IHistory>,
     isCreating?: boolean
 }

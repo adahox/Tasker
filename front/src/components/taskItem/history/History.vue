@@ -2,7 +2,7 @@
     <v-row class="" v-for="(h, key) in history">
 
         <v-col class="align-self-center" v-if="h.isCreating">
-            <v-text-field v-model="h.description" label="Sub Task title" required></v-text-field>
+            <v-text-field v-model="h.description" label="" required></v-text-field>
         </v-col>
         <v-col class="align-self-center" v-if="h.isCreating">
             <v-checkbox v-model="startOnSave" label="Iniciar ao Salvar" color="success" :value="true"
@@ -27,7 +27,7 @@
             <Time v-if="h.closed" color="grey" value="Finalizado" />
             <Time v-if="h.startTime" time color="green" :value="h.startTime" />
             <Time v-if="h.endTime" time color="red-lighten-2" :value="h.endTime" />
-            <Time v-if="h.endTime" time color="blue" :value="getWorkedTime(h.startTime, h.endTime)" />
+            <Time v-if="h.endTime" color="blue" :value="getWorkedTime(h.startTime, h.endTime)" />
 
         </v-col>
     </v-row>
@@ -59,6 +59,7 @@ const history: Array<IHistory> = reactive(props.history);
 
 async function startHistoryTask(history_id: string, index: number): Promise<void> {
     const started = await startHistoryTime(history_id);
+    console.log(started);
     history[index] = started.history;
 }
 
@@ -68,6 +69,7 @@ async function stopHistoryTask(history_id: string, index: number): Promise<void>
 }
 
 function getWorkedTime(startTime: string, endTime: string): string  {
+    console.log('the diff', getDiff(startTime, endTime));
     return getDiff(startTime, endTime)
 }
 

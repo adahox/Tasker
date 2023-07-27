@@ -4,7 +4,8 @@
       <v-row>
         <v-col class="text-right py-10">
           <v-col>
-            <VueDatePicker v-model="date" :enable-time-picker="false" :format="formatarData"  @update:model-value="filterDate"></VueDatePicker>
+            <VueDatePicker v-model="date" :enable-time-picker="false" :format="formatarData"
+              @update:model-value="filterDate"></VueDatePicker>
           </v-col>
           <v-col cols="auto">
             <v-btn color="teal-lighten-2" icon="mdi-plus" size="x-small" @click="showNewTaskDialog"></v-btn>
@@ -15,8 +16,7 @@
         <p class="text-subtitle-2 px-4 pt-8">
           {{ index }}
         </p>
-        <TaskItem v-for="(task, index) in tasks" :id="task.id" :title="task.title" :history="task.history"
-          :description="task.description" :time="task.time" :key="index" />
+        <TaskItem v-for="(task, index) in tasks" :id="task.id" :title="task.title" :history="task.history" :key="index" />
       </v-row>
 
     </v-responsive>
@@ -35,7 +35,7 @@
           variant="solo"></v-text-field>
       </v-card-text>
       <v-card-actions>
-        <v-btn rounded="20" block prepend-icon="mdi-plus" @click="addNewTask" class="bg-teal-lighten-2">Salvar
+        <v-btn rounded="20" block prepend-icon="mdi-plus" @click="adicionarTarefa" class="bg-teal-lighten-2">Salvar
           Tarefa</v-btn>
       </v-card-actions>
     </v-card>
@@ -58,7 +58,7 @@ let redmineLink = ref("");
 const taskList = await listTask();
 
 let list = reactive({ tasks: taskList.task });
-const groupedByDate  = reactive({tasks: []});
+const groupedByDate = reactive({ tasks: [] });
 
 function groupBy(arr, keyGetter) {
   const out = {};
@@ -72,8 +72,7 @@ function groupBy(arr, keyGetter) {
 
 groupedByDate.tasks = groupBy(list.tasks, (task) => formatTo(task.createdAt, 'DD/MM'));
 
-const addNewTask = async () => {
-
+async function adicionarTarefa() {
   const newTask = {
     title: taskTitle.value,
     description: subTarefaDescricao.value,
@@ -87,7 +86,7 @@ const addNewTask = async () => {
 
   cleaNewTaskForm();
   HideNewTaskDialog();
-  
+
 }
 
 function filterDate() {
@@ -97,7 +96,7 @@ function filterDate() {
 }
 
 function formatarData(date) {
-  
+
   return formatTo(date, 'DD/MM')
 }
 

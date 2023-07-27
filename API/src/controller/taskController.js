@@ -3,7 +3,7 @@ const { createTask, listTask, updateTask, deleteTask } = require('../repository/
 const create = async (req, res) => {
     try {
         const task = await createTask(req.body);
-        res.status(200).send({ task });
+        res.status(200).send({ args: req.args });
     } catch (e) {
         res.status(400).send(e.message);
     }
