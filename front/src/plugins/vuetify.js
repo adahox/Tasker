@@ -11,6 +11,7 @@ import 'vuetify/styles'
 // Composables
 import { createVuetify } from 'vuetify'
 import colors from 'vuetify/lib/util/colors'
+import { VuetifyDateAdapter } from 'vuetify/labs/date/adapters/vuetify'
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({

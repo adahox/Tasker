@@ -13,5 +13,9 @@ export const getDiff = (startTime: string, endTime: string): string => {
   const diff = time2.diff(time1);
   const timeObject = new Date(diff).toString();
 
-  return dayjs(timeObject).toISOString().slice(11,16);
+  return dayjs(timeObject).toString().slice(11,16);
+}
+
+export function formatTo(value: string, format: string): string {
+  return dayjs(value).format(format);
 }

@@ -11,17 +11,21 @@ datasource db {
 }
 
 model History {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   startTime   DateTime?
   endTime     DateTime?
   description String
-  Tasks       Tasks?   @relation(fields: [tasksId], references: [id])
-  tasksId     String?  @db.ObjectId
-  closed Boolean @default(false)
+  Tasks       Tasks?    @relation(fields: [tasksId], references: [id])
+  tasksId     String?   @db.ObjectId
+  closed      Boolean   @default(false)
 }
 
 model Tasks {
-  id      String    @id @default(auto()) @map("_id") @db.ObjectId
-  title   String
-  history History[]
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  history       History[]
+  redmineTaskId String    @default("")
+  redmineLink   String    @default("")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }

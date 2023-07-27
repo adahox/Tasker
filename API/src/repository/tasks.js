@@ -2,9 +2,16 @@ const prisma = require('../services/prisma');
 const { createHistory } = require('./history');
 
 const createTask = async (data) => {
+
+    const redmineLink = data.redmineLink;
+    const redmineLinkArray = data.redmineLink.split("/");
+    const redmineId = redmineLinkArray.slice(-1)[0];
+
     const task = await prisma.tasks.create({
         data: {
-            title: data.title
+            title: data.title,
+            redmineLink: redmineLink,
+            redmineTaskId: redmineId
         },include:{
             history: true
         }

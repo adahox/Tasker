@@ -27,7 +27,7 @@
             <Time v-if="h.closed" color="grey" value="Finalizado" />
             <Time v-if="h.startTime" time color="green" :value="h.startTime" />
             <Time v-if="h.endTime" time color="red-lighten-2" :value="h.endTime" />
-            <Time v-if="h.endTime" color="blue" :value="getWorkedTime(h.startTime, h.endTime)" />
+            <Time v-if="h.endTime" time color="blue" :value="getWorkedTime(h.startTime, h.endTime)" />
 
         </v-col>
     </v-row>
@@ -73,7 +73,7 @@ function getWorkedTime(startTime: string, endTime: string): string  {
 
 async function addNewSubTask(history: IHistory): Promise<void> {
     let newSubTask = history;
-    newSubTask.startTime = startOnSave.value ? new Date().toUTCString() : null;
+    newSubTask.startTime = startOnSave.value ? new Date().toISOString() : null;
     delete newSubTask.isCreating;
 
     registerHistory(newSubTask).then((data) => {
