@@ -20,7 +20,7 @@ const startTime = async (req, res) => {
 
 const endTime = async (req, res) => {
     try {
-        const history = await pauseHistory(req.params.id);
+        const history = await pauseHistory(req.params.id, req.body);
         res.status(200).send({ history });
     } catch (e) {
         res.status(400).send(e.message);

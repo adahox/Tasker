@@ -1,7 +1,8 @@
 const express = require('express');
 const task = require('../controller/taskController');
 const history = require('../controller/historyController');
-
+const redmine = require('../controller/redmineController');
+//TODO: Separar as rotas por arquivos.
 const router = express.Router();
  
 router.get('/task', function(req, res) {
@@ -35,6 +36,12 @@ router.put('/history/:id/start', function(req, res) {
 
 router.put('/history/:id/end', function(req, res) {
     history.endTime(req, res);
+});
+
+// redmine
+
+router.post('/redmine/entry_activity', function(req, res) {
+    redmine.updateEntryActivity(req, res);
 });
 
 

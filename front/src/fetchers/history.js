@@ -25,8 +25,8 @@ const startHistoryTime = async (id) => {
     return history.data;
 }
 
-const stopHistoryTime = async (id) => {
-    const history = await axios.put(`http://localhost:3001/api/history/${id}/end`);
+const stopHistoryTime = async (id, workedTime) => {
+    const history = await axios.put(`http://localhost:3001/api/history/${id}/end`, {workedTime: workedTime});
     return history.data;
 }
 

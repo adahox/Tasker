@@ -1,6 +1,6 @@
 const prisma = require('../services/prisma');
 const { redmine } = require('../fetcher/axios');
-
+const { updateRedmineEntryActivity } = require('../fetcher/redmine');
 const createHistory = async (data) => {
     const history = await prisma.history.create({
         data
@@ -58,7 +58,7 @@ const startHistory = async (id) => {
     return histories;
 }
 
-const pauseHistory = async (id) => {
+const pauseHistory = async (id, workedTime) => {
     const histories = await prisma.history.update({
         where: { id: id }, data: {
             endTime: new Date(),
@@ -78,14 +78,31 @@ const pauseHistory = async (id) => {
 
     if (history) {
         if (history.Tasks.redmineLink) {
-            const redmineId = history.Tasks.redmineTaskId;
+            let redmineId = history.Tasks.redmineTaskId;
             // envia axios pra ativar a tarefa.
-            
-            const redmineAPI = await redmine.put(`/issues/${redmineId}.json`, {
+            let redmineAPI = await redmine.put(`/issues/${redmineId}.json`, {
                 issue: {
                     status_id: 7
                 }
             });
+            console.log('redmineApi', redmineAPI.status);
+            let yourDate = new Date();
+            yourDate = yourDate.toISOString().split('T')[0];
+
+            let data = {
+                time_entry: {
+                    issue_id: parseInt(redmineId),
+                    user_id: parseInt(process.env.REDMINE_USER_ID),
+                    hours: workedTime.workedTime,
+                    comments: "Additional implementation",
+                    spent_on: yourDate,
+                    activity_id: parseInt(process.env.ACTIVITY_STATUS_PAUSE),
+                }
+            }
+
+
+            redmineAPI = await redmine.post('/time_entries.json', data);
+            console.log(redmineAPI.data);
         }
     }
 
